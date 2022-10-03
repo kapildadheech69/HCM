@@ -1,5 +1,6 @@
 ﻿using LoginAndRegistration.Dto;
 using LoginAndRegistration.Modals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace LoginAndRegistration.Controllers
         }
 
         [HttpGet]
-        [Route("Physicians")]
+        [Route("GetPhysicians")]
         public IEnumerable<Physician> GetPhysicianList()
         {
             var physicians = context.Physicians.ToList();
@@ -75,6 +76,7 @@ namespace LoginAndRegistration.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("ByMemberId/{id}")]
         public ActionResult<Member> GetMemberByMemberId(int id)
         {
@@ -136,6 +138,31 @@ namespace LoginAndRegistration.Controllers
             memberDto.DateOfBirth = member.DateOfBirth;
 
             return Ok(memberDto);
+        }
+
+        [HttpGet]
+        [Route("ByPhysicianName")]
+
+        public ActionResult<SearchMemberDto> GetMemberByPhysicianname(string name=null)
+        {
+            var physician = context.Physicians.Include(p => p.Members).SingleOrDefault(p => p.PhysicianName == name);
+            if (physician == null)
+                return BadRequest();
+            List<SearchMemberDto> membersDto=new List<SearchMemberDto>();
+            SearchMemberDto memberDto=new SearchMemberDto();
+            foreach (var member in physician.Members)
+            {
+                memberDto.FirstName = member.FirstName;
+                memberDto.LastName = member.LastName;
+                memberDto.UserName = member.UserName;
+                memberDto.Address = member.Address;
+                memberDto.State = member.State;
+                memberDto.City = member.City;
+                memberDto.Email = member.Email;
+                memberDto.DateOfBirth = member.DateOfBirth;
+                membersDto.Add(memberDto);
+            }
+            return Ok(membersDto);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace LoginAndRegistration.Modals
         }
         public DbSet<Member> Members { get; set; }
         public DbSet<Physician> Physicians { get; set; }
-        public DbSet<Login> Logins { get; set; }
+        public DbSet<LocalUser> LocalUsers { get; set; }
         public DbSet<Claim> Claims { get; set; }
     }
 }

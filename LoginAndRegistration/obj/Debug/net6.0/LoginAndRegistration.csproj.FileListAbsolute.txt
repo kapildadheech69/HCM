@@ -64,3 +64,4 @@ C:\HCM\LoginAndRegistration\LoginAndRegistration\bin\Debug\net6.0\System.Net.Htt
 C:\HCM\LoginAndRegistration\LoginAndRegistration\bin\Debug\net6.0\System.Web.Http.dll
 C:\HCM\LoginAndRegistration\LoginAndRegistration\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\HCM\LoginAndRegistration\LoginAndRegistration\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\HCM\LoginAndRegistration\LoginAndRegistration\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
